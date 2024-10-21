@@ -18,33 +18,33 @@ import java.util.Optional;
 public class EmployeeController {
     private EmployeeServiceInterface employeeService;
 
-    @GetMapping("department employees/{id}")
+    @GetMapping("open/department employees/{id}")
     public ResponseEntity<List<DepartmentEmployees>> getEmployeeProjections(@PathVariable Long id) {
         return new ResponseEntity<>(employeeService.findAllEmployeeProjectionByDepartmentId(id), HttpStatus.OK);
     }
 
-    @PostMapping("new_employee")
+    @PostMapping("secure/new_employee")
     public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
         return new ResponseEntity<>(employeeService.saveEmployee(employeeDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping("find_employee/{id}")
+    @GetMapping("open/find_employee/{id}")
     public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
         Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployeeById(id));
         return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("all_employees")
+    @GetMapping("open/all_employees")
     public ResponseEntity<List<Employee>> getAllEmployees() {
         return ResponseEntity.ok().body(employeeService.getAllEmployees());
     }
 
-    @PutMapping("upt_employee")
+    @PutMapping("secure/upt_employee")
     public ResponseEntity<Employee> updateDepartment(@RequestBody EmployeeDTO employeeDTO) {
         return new ResponseEntity<>(employeeService.updateEmployee(employeeDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("del_employees/{id}")
+    @DeleteMapping("secure/del_employees/{id}")
     public ResponseEntity<Void> deleteEmployees(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.ok().build();
