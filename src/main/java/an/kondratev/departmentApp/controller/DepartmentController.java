@@ -17,7 +17,7 @@ import java.util.Optional;
 public class DepartmentController {
     private DepartmentServiceInterface departmentService;
 
-    @PostMapping("secure/new_department")
+    @PostMapping("open/new_department")
     public ResponseEntity<Department> createDepartment(@RequestBody DepartmentDTO departmentDTO) {
         return new ResponseEntity<>(departmentService.addDepartment(departmentDTO), HttpStatus.CREATED);
     }
